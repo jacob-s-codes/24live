@@ -1,29 +1,80 @@
-// pages/api/socket.js
-import { Server } from 'socket.io'
+import { Server } from 'socket.io';
 
-const games = new Map() // Store active games
-const waitingPlayers = [] // Players waiting for a game
+const games = new Map();
+const players = []
 
-function generateNumbers() {
-  return Array.from({ length: 4 }, () => Math.floor(Math.random() * 13) + 1)
+function getValidNums() {
+    let nums = [1, 1, 1, 1]
+    while (!canMake24(nums)) {
+        nums = Array.from({ length: 4 }, () => Math.floor(Math.random() * 13) + 1);
+    }
+    return nums;
 }
 
 function createGame(player1, player2) {
-  const gameId = Math.random().toString(36).substr(2, 9)
-  const numbers = generateNumbers()
-  
-  const game = {
-    id: gameId,
-    players: [player1, player2],
-    numbers: numbers,
-    solutions: [],
-    winner: null,
-    status: 'playing',
-    startTime: Date.now()
-  }
-  
-  games.set(gameId, game)
-  return game
+    const gameId = Math.random().toString(36).substr(2, 9);
+    const numbers = getValidNums();
+
+    const game = {
+        id: gameId,
+        players: [player1, player2],
+        numbers: numbers,
+        solutions: [],
+        winner: null,
+        status: 'playing',
+        startTime: Date.now()
+    }
+
+    games.set(gameId, game);
+    return game;
+}
+
+function canMake24(nums) {
+    const EPSILON = 1e-6;
+
+    // Use a Set to store processed arrays to avoid redundant calculations
+    // (though for 24 game with 4 numbers, this might be overkill and still slow)
+    // A better approach is to not generate redundant subproblems in the first place.
+
+    function helper(arr) {
+        if (arr.length === 0) return false; // Should not happen with initial call
+        if (arr.length === 1) return Math.abs(arr[0] - 24) < EPSILON;
+
+        // Iterate through all unique pairs (i, j)
+        // To avoid processing (a, b) and then (b, a) as separate initial pairs,
+        // ensure i < j to pick distinct pairs only once.
+        for (let i = 0; i < arr.length; i++) {
+            for (let j = i + 1; j < arr.length; j++) { // Start j from i + 1
+                const rest = [];
+                for (let k = 0; k < arr.length; k++) {
+                    if (k !== i && k !== j) rest.push(arr[k]);
+                }
+
+                const a = arr[i], b = arr[j];
+
+                // Operations: a+b, a-b, b-a, a*b, a/b, b/a
+                // Note: (a+b) is same as (b+a). (a*b) is same as (b*a).
+                // Subtraction and division are not commutative.
+                const nextValues = [];
+                nextValues.push(a + b);
+                nextValues.push(a - b);
+                nextValues.push(b - a);
+                nextValues.push(a * b);
+
+                if (Math.abs(b) > EPSILON) nextValues.push(a / b);
+                if (Math.abs(a) > EPSILON) nextValues.push(b / a);
+
+                for (const val of nextValues) {
+                    if (helper([...rest, val])) return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    // Initial call to helper with the input numbers
+    return helper(nums);
 }
 
 function isValidSolution(numbers, expression) {
@@ -114,7 +165,7 @@ export default function handler(req, res) {
         if (!game) return
 
         // Generate new numbers
-        game.numbers = generateNumbers()
+        game.numbers = getValidNums()
         game.status = 'playing'
         game.winner = null
         game.solutions = []
