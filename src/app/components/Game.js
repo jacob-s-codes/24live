@@ -1,12 +1,14 @@
 "use client";
 import { useState, useEffect } from 'react'
 import io from 'socket.io-client'
+import { useAuth } from '../context/AuthContext'
+import Login from './Login'
 
 let socket
 
 export default function Game() {
+  const { user, logout, updateUserStats } = useAuth()
   const [gameState, setGameState] = useState('menu') // menu, waiting, playing, finished
-  const [playerName, setPlayerName] = useState('')
   const [gameId, setGameId] = useState('')
   const [numbers, setNumbers] = useState([])
   const [expression, setExpression] = useState('')
@@ -15,12 +17,21 @@ export default function Game() {
   const [error, setError] = useState('')
   const [gameTime, setGameTime] = useState(0)
 
+  // Move useEffect to the top, before any conditional returns
   useEffect(() => {
+    // Only initialize socket if user is authenticated
+    if (!user) return
+    
     socketInitializer()
     return () => {
       if (socket) socket.disconnect()
     }
-  }, [])
+  }, [user]) // Add user as dependency
+
+  // Now do the conditional return AFTER all hooks
+  if (!user) {
+    return <Login />
+  }
 
   const socketInitializer = async () => {
     await fetch('/api/socket')
@@ -43,10 +54,14 @@ export default function Game() {
       setError('')
     })
 
-    socket.on('gameWon', (data) => {
+    socket.on('gameWon', async (data) => {
       setWinner(data.winner)
       setGameTime(data.gameTime)
       setGameState('finished')
+      
+      // Update user stats
+      const won = data.winner === (user.displayName || user.email || 'Guest')
+      await updateUserStats(won, data.gameTime)
     })
 
     socket.on('invalidSolution', (data) => {
@@ -68,10 +83,7 @@ export default function Game() {
   }
 
   const findGame = () => {
-    if (!playerName.trim()) {
-      setError('Please enter your name')
-      return
-    }
+    const playerName = user.displayName || user.email || 'Guest'
     socket.emit('findGame', playerName)
   }
 
@@ -89,7 +101,6 @@ export default function Game() {
 
   const backToMenu = () => {
     setGameState('menu')
-    setPlayerName('')
     setGameId('')
     setNumbers([])
     setExpression('')
@@ -111,25 +122,42 @@ export default function Game() {
 
         {gameState === 'menu' && (
           <div>
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Enter your name:
-              </label>
-              <input
-                type="text"
-                value={playerName}
-                onChange={(e) => setPlayerName(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-300 text-black"
-                placeholder="Your name"
-                onKeyPress={(e) => e.key === 'Enter' && findGame()}
-              />
+            <div className="mb-6 text-center">
+              <div className="flex items-center justify-center space-x-3 mb-4">
+                {user.photoURL && (
+                  <img 
+                    src={user.photoURL} 
+                    alt="Profile" 
+                    className="w-12 h-12 rounded-full"
+                  />
+                )}
+                <div>
+                  <h2 className="text-xl font-semibold text-gray-800">
+                    Welcome, {user.displayName || user.email || 'Guest'}!
+                  </h2>
+                  {user.gamesPlayed > 0 && (
+                    <p className="text-sm text-gray-600">
+                      {user.gamesWon}/{user.gamesPlayed} wins
+                      {user.bestTime && ` • Best: ${Math.round(user.bestTime / 1000)}s`}
+                    </p>
+                  )}
+                </div>
+              </div>
+              <button
+                onClick={logout}
+                className="text-sm text-gray-500 hover:text-gray-700 underline"
+              >
+                Sign out
+              </button>
             </div>
+            
             <button
               onClick={findGame}
-              className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-blue-500 text-white py-3 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg font-semibold"
             >
               Find Game
             </button>
+            
             <div className="mt-6 text-sm text-gray-600">
               <p className="font-semibold mb-2">How to play:</p>
               <p>Use the four numbers and basic operations (+, -, *, /) to make 24.</p>
@@ -167,7 +195,7 @@ export default function Game() {
             </div>
             
             <div className="mb-6">
-              <p className="text-lg font-semibold mb-2 text-black">Use these numbers to make 24:</p>
+              <p className="text-lg font-semibold mb-2">Use these numbers to make 24:</p>
               <div className="flex justify-center space-x-4 mb-4">
                 {numbers.map((num, index) => (
                   <div
@@ -188,7 +216,7 @@ export default function Game() {
                 type="text"
                 value={expression}
                 onChange={(e) => setExpression(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-300 text-black"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="e.g., 1 + 2 + 3 * 7"
                 onKeyPress={(e) => e.key === 'Enter' && submitSolution()}
               />
@@ -205,9 +233,9 @@ export default function Game() {
 
         {gameState === 'finished' && (
           <div className="text-center">
-            <div className="mb-4">
+            <div className="mb-6">
               <h2 className="text-2xl font-bold mb-2">
-                {winner === playerName ? '🎉 You Won!' : `${winner} Won!`}
+                {winner === (user.displayName || user.email || 'Guest') ? '🎉 You Won!' : `${winner} Won!`}
               </h2>
               <p className="text-gray-600">
                 Game completed in {Math.round(gameTime / 1000)} seconds
