@@ -3,20 +3,35 @@ import { Server } from 'socket.io';
 
 const games = new Map();
 const waitingPlayers = [];
-
+const validEasyGames = [[1,1,4,6], [1,1,11,11]]
+const validMediumGames = [[3,5,10,12], [1,2,4,13]] // Games from 400 - 800 are considered medium
+const validHardGames = [[3,6,12,13], [1,3,5,7]] // Games from 801 onward are considered hard
 // Generate random numbers for the game
 function getValidNums() {
-  const numbers = [];
-  for (let i = 0; i < 4; i++) {
-    numbers.push(Math.floor(Math.random() * 13) + 1);
+  const difficulty = Math.floor(Math.random() * 3); // 0,1,2
+  let pool;
+
+  if (difficulty === 0) {
+    pool = validEasyGames;
+    console.log('Selected EASY difficulty, pool:', pool);
+  } else if (difficulty === 1) {
+    pool = validMediumGames;
+    console.log('Selected MEDIUM difficulty, pool:', pool);
+  } else {
+    pool = validHardGames;
+    console.log('Selected HARD difficulty, pool:', pool);
   }
-  return numbers;
+  const selected = pool[Math.floor(Math.random() * pool.length)];
+  console.log('Selected numbers from pool:', selected);
+  return selected;
 }
+
 
 // Create a new game
 function createGame(player1, player2) {
   const gameId = Math.random().toString(36).substring(2, 15);
-  const numbers = getValidNums();
+  const numbers = [1,2,3,4] //getValidNums();
+  console.log('Game created with numbers:', numbers);
   
   const game = {
     id: gameId,
@@ -84,6 +99,7 @@ export default function handler(req, res) {
           socket.join(game.id);
           opponent.socket.join(game.id);
           
+          console.log('Emitting gameFound with numbers:', game.numbers);
           io.to(game.id).emit('gameFound', {
             gameId: game.id,
             players: game.players.map(p => ({ 
@@ -129,7 +145,7 @@ export default function handler(req, res) {
         if (!player) return;
 
         // Generate new numbers
-        game.numbers = getValidNums();
+        game.numbers = [1,2,3,4]//getValidNums();
         game.startTime = Date.now();
         game.finished = false;
 

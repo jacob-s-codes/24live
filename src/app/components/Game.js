@@ -46,6 +46,7 @@ export default function Game() {
     })
 
     socket.on('gameFound', (data) => {
+      console.log('Received gameFound with numbers:', data.numbers);
       setGameId(data.gameId)
       setPlayers(data.players)
       setNumbers(data.numbers)
@@ -127,7 +128,8 @@ export default function Game() {
                 {user.photoURL && (
                   <img 
                     src={user.photoURL} 
-                    alt="Profile" 
+                    alt="Profile"
+                    referrerPolicy='no-referrer' 
                     className="w-12 h-12 rounded-full"
                   />
                 )}
@@ -194,7 +196,7 @@ export default function Game() {
               </div>
             </div>
             
-            <div className="mb-6">
+            <div className="mb-6 text-black">
               <p className="text-lg font-semibold mb-2">Use these numbers to make 24:</p>
               <div className="flex justify-center space-x-4 mb-4">
                 {numbers.map((num, index) => (
@@ -208,8 +210,8 @@ export default function Game() {
               </div>
             </div>
 
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+            <div className="mb-4 text-black">
+              <label className="block text-sm font-medium  mb-2">
                 Your solution:
               </label>
               <input
