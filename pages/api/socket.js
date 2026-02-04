@@ -5,7 +5,8 @@ const games = new Map();
 const waitingPlayers = [];
 const validEasyGames = [[1,1,4,6], [1,1,11,11]]
 const validMediumGames = [[3,5,10,12], [1,2,4,13]] // Games from 400 - 800 are considered medium
-const validHardGames = [[3,6,12,13], [1,3,5,7]] // Games from 801 onward are considered hard
+const validHardGames = [[3,6,12,13], [1,3,5,7]]
+console.log(validHardGames) // Games from 801 onward are considered hard
 // Generate random numbers for the game
 function getValidNums() {
   const difficulty = Math.floor(Math.random() * 3); // 0,1,2
