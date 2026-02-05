@@ -3,11 +3,15 @@ import Game from '@/app/components/Game';
 
 export default function Home() {
   return (
-    <AuthProvider>
-      {/* <AuthWrapper> */}
+    <div>
+      <a href="/login">Link</a>
+      <AuthProvider>
+        {/* <AuthWrapper> */}
         <Game />
-      {/* </AuthWrapper> */}
-    </AuthProvider>
+        {/* </AuthWrapper> */}
+      </AuthProvider>
+    </div>
+
   );
 }
 
