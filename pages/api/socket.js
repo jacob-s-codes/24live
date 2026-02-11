@@ -31,7 +31,7 @@ function getValidNums() {
 // Create a new game
 function createGame(player1, player2) {
   const gameId = Math.random().toString(36).substring(2, 15);
-  const numbers = [1,2,3,4] //getValidNums();
+  const numbers = getValidNums();
   console.log('Game created with numbers:', numbers);
   
   const game = {
@@ -146,7 +146,7 @@ export default function handler(req, res) {
         if (!player) return;
 
         // Generate new numbers
-        game.numbers = [1,2,3,4]//getValidNums();
+        game.numbers = getValidNums();
         game.startTime = Date.now();
         game.finished = false;
 

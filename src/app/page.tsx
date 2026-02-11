@@ -1,17 +1,16 @@
-import { AuthProvider, useAuth } from '../app/context/AuthContext';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import Game from '@/app/components/Game';
+import Navbar from './components/Home/Navbar';
+import FirstSection from './components/Home/FirstSection';
+import SecondSection from './components/Home/SecondSection';
 
 export default function Home() {
   return (
-    <div>
-      <a href="/login">Link</a>
-      <AuthProvider>
-        {/* <AuthWrapper> */}
-        <Game />
-        {/* </AuthWrapper> */}
-      </AuthProvider>
+    <div className='min-h-screen bg-gradient-to-b from-darkblue to-yellow w-full'>
+      <Navbar/>
+      <FirstSection/>
+      <SecondSection/>
     </div>
-
   );
 }
 

@@ -1,4 +1,4 @@
-import { AuthProvider, useAuth } from '../app/context/AuthContext';
+import { AuthProvider, useAuth } from '../../app/context/AuthContext';
 import Game from '@/app/components/Game';
 
 export default function Home() {

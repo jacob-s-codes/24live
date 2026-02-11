@@ -44,7 +44,7 @@ export default function Login() {
     setLoading(true);
     try {
       await signIn();
-      router.push('/');
+      router.push('/play');
     } catch (err) {
       setError(err.message);
     } finally {
