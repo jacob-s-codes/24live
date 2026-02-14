@@ -34,11 +34,21 @@ export default function Game() {
   }
 
   const socketInitializer = async () => {
-    await fetch('/api/socket')
-    socket = io()
+    const socketUrl = process.env.NEXT_PUBLIC_SOCKET_SERVER_URL || 'http://localhost:3001'
+    socket = io(socketUrl, {
+      reconnection: true,
+      reconnectionDelay: 1000,
+      reconnectionDelayMax: 5000,
+      reconnectionAttempts: 5
+    })
 
     socket.on('connect', () => {
       console.log('Connected to server')
+    })
+
+    socket.on('connect_error', (error) => {
+      console.error('Connection error:', error)
+      setError('Failed to connect to game server')
     })
 
     socket.on('waiting', () => {
