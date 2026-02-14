@@ -35,7 +35,8 @@ export default function Game() {
 
   const socketInitializer = async () => {
     await fetch('/api/socket')
-    socket = io()
+    const socketUrl = process.env.NEXT_PUBLIC_SOCKET_SERVER_URL || 'http://localhost:3001';
+    socket = io(socketUrl)
 
     socket.on('connect', () => {
       console.log('Connected to server')
