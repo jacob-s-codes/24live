@@ -6,6 +6,11 @@ import http from "http";
 const app = express();
 app.use(cors());
 
+// Root route handler
+app.get('/', (req, res) => {
+  res.json({ message: 'Socket.IO server is running' });
+});
+
 const server = http.createServer(app);
 
 const io = new Server(server, {
