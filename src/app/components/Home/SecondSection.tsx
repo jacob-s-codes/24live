@@ -62,7 +62,7 @@ const SecondSection = () => {
       <div className='flex flex-row-reverse items-center justify-center gap-x-12 my-12'>
         <img src="/logo.png" alt="logo" className="rounded-lg w-96 h-auto mt-12" />
         <div className='max-w-lg'>
-          <h3 className="text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-darkblue to-lightblue uppercase">Solve puzzles</h3>
+          <h3 className="text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-darkblue to-lightblue uppercase">Solve puzzles!</h3>
           <p className="text-xl pb-4 text-darkblue">
             Use each number once and addition, subtraction, multiplication, or division to create the number 24! If you're still confused, check out the rules page to learn how to play and get started!
           </p>
@@ -72,7 +72,7 @@ const SecondSection = () => {
       <div className='flex flex-row items-center justify-center gap-x-12 text-right'>
         <img src="/logo.png" alt="logo" className="rounded-lg w-96 h-auto mt-12" />
         <div className='max-w-lg'>
-          <h3 className="text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-darkblue to-lightblue uppercase">Learn and Have fun</h3>
+          <h3 className="text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-darkblue to-lightblue uppercase">Learn and Have fun!</h3>
           <p className="text-xl pb-4 text-darkblue">
             Improve your speed and accuracy as you play against others and climb the leaderboard! Sharpen your mental math skills while having fun and competing against others!
           </p>
