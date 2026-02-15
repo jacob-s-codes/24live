@@ -10,7 +10,7 @@ const Navbar = () => {
         <div className='flex flex-row items-center justify-center gap-x-12 uppercase text-xl'>
             <a href="/play" className='hover:text-yellow'>Play</a>
             <a href="/rules" className='hover:text-yellow'>Rules</a>
-            <a href="/login" className='bg-yellow text-darkblue hover:text-white hover:bg-lightblue px-8 py-2 rounded-lg'>Login</a>
+            <a href="/login" className='bg-yellow text-darkblue hover:bg-lightyellow px-8 py-2 rounded-lg'>Login</a>
         </div>
     </div>
   )
