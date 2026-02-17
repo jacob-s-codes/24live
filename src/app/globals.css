@@ -7,12 +7,10 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-darkblue: #001D3D; 
-  --color-lightblue: #003566; 
-  --color-lighterblue: #335152; 
-  --color-yellow: #FFC300;
-  --color-lightyellow: #FFD60A;
-  --color-verylightyellow: #FFEE9A;
+  --color-darkblue: #060710; 
+  --color-pinkaccent: #e31257;
+  --color-orangeaccent: #e0512d;
+  --color-yellow: #f9d84e;
   --color-blackbg: #000814;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -55,7 +53,7 @@
 }
 
 .introtext {
-  background: radial-gradient( #003566, #FFFFFF, #FFC300);
+  background: radial-gradient( #e0512d, #FFFFFF, #e31257);
   background-clip: text;
   color: transparent;
   animation: colormove 10s linear infinite;

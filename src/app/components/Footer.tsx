@@ -6,13 +6,13 @@ const Footer = () => {
 
 
     return (
-        <div className='bg-darkblue text-white'>
-            <hr className='border-2 border-white ' />
+        <div className='bg-white text-black'>
+            <hr className='border-2 border-pinkaccent ' />
             <footer className="max-w-[1800px] mx-auto px-8 py-12 footer filter  md:text-lg text-sm">
                 <div className="flex flex-row justify-between items-center w-full">
 
                     <div className="flex flex-row md:gap-x-12 gap-x-6 pr-12">
-                        <img src="/logo.png" alt="24Live Logo" className="w-30 h-auto rounded-lg" />
+                        <a href="/" className='w-fit text-7xl text-transparent bg-clip-text bg-gradient-to-r from-pinkaccent to-orangeaccent'>24Live</a>
                     </div>
                     <div className='flex flex-row items-end justify-end gap-x-12'>
                         <div className="flex flex-col justify-end items-end gap-5 text-right">

@@ -6,7 +6,7 @@ import SecondSection from './components/Home/SecondSection';
 
 export default function Home() {
   return (
-    <div className='min-h-screen bg-gradient-to-b from-darkblue to-yellow w-full'>
+    <div className='min-h-screen bg-[#060710] w-full'>
       <Navbar/>
       <FirstSection/>
       <SecondSection/>
