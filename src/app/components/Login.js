@@ -53,10 +53,10 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-darkblue to-yellow flex flex-col items-center justify-center">
+    <div className="min-h-screen bg-darkblue flex flex-col items-center justify-center">
       <div className='flex flex-col items-center justify-center text-black gap-y-4 bg-white backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200/50 p-8 w-full max-w-md'>
         <div className="text-center max-w-3xl w-full space-y-8 flex flex-col items-center">
-          <Logo />
+          <img src="/playonline.png" className='rounded-lg'/>
         </div>
         <h1 className="text-3xl font-bold mb-2">Welcome!</h1>
         <p className="">Please sign in to access your account</p>
@@ -103,7 +103,7 @@ export default function Login() {
                   value={displayName}
                   onChange={(e) => setDisplayName(e.target.value)}
                   disabled={loading}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 disabled:bg-gray-100"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pinkaccent text-gray-700 disabled:bg-gray-100"
                 />
               )}
               <input
@@ -112,7 +112,7 @@ export default function Login() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={loading}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 disabled:bg-gray-100"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pinkaccent text-gray-700 disabled:bg-gray-100"
               />
               <input
                 type="password"
@@ -120,12 +120,12 @@ export default function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={loading}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 disabled:bg-gray-100"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pinkaccent text-gray-700 disabled:bg-gray-100"
               />
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-gradient-to-r from-pinkaccent to-orangeaccent hover:scale-105 transition duration-200 text-white font-medium py-2 px-4 rounded-lg  disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? 'Loading...' : isSignUp ? 'Sign Up' : 'Sign In'}
               </button>

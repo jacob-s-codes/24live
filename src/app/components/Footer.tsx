@@ -12,7 +12,7 @@ const Footer = () => {
                 <div className="flex flex-row justify-between items-center w-full">
 
                     <div className="flex flex-row md:gap-x-12 gap-x-6 pr-12">
-                        <a href="/" className='w-fit text-7xl text-transparent bg-clip-text bg-gradient-to-r from-pinkaccent to-orangeaccent'>24Live</a>
+                        <a href="/" className='w-fit text-7xl text-transparent bg-clip-text bg-gradient-to-r from-pinkaccent to-orangeaccent footertext'>24Live</a>
                     </div>
                     <div className='flex flex-row items-end justify-end gap-x-12'>
                         <div className="flex flex-col justify-end items-end gap-5 text-right">

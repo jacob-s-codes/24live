@@ -60,6 +60,14 @@
   background-size: 200% 200%;
 }
 
+.footertext {
+  background: radial-gradient( #e0512d, #e31257, #000000);
+  background-clip: text;
+  color: transparent;
+  animation: colormove 10s linear infinite;
+  background-size: 200% 200%;
+}
+
 @keyframes colormove {
   0% {
     background-position: 0% 0%;

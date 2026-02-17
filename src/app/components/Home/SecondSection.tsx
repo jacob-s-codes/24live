@@ -70,7 +70,7 @@ const SecondSection = () => {
         </div>
       </div>
       <div className='flex flex-row items-center justify-center gap-x-12 text-right'>
-        <img src="/logo.png" alt="logo" className="rounded-lg w-96 h-auto mt-12" />
+        <img src="/compete.png" alt="logo" className="rounded-lg w-xl h-auto mt-12" />
         <div className='max-w-lg'>
           <h3 className="text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-pinkaccent to-orangeaccent uppercase">Learn and Have fun!</h3>
           <p className="text-xl pb-4">
