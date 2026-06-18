@@ -9,7 +9,7 @@ const Navbar = () => {
         </div>
         <div className='flex flex-row items-center justify-center gap-x-12 uppercase lg:text-xl text-base'>
             <a href="/play" className='hover:text-orangeaccent'>Play</a>
-            <a href="/rules" className='hover:text-orangeaccent'>Rules</a>
+            {/* <a href="/rules" className='hover:text-orangeaccent'>Rules</a> */}
             <a href="/login" className='bg-pinkaccent text-white hover:scale-105 transition-transform duration-200 px-8 py-2 rounded-lg'>Login</a>
         </div>
     </div>

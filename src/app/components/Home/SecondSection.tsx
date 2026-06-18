@@ -64,7 +64,7 @@ const SecondSection = () => {
           <p className="text-lg md:text-xl">
             Use each number once and addition, subtraction, multiplication, or division to create the number 24! If you're still confused, check out the rules page to learn how to play and get started!
           </p>
-          <RulesButton />
+          {/* <RulesButton /> */}
         </div>
       </div>
 
