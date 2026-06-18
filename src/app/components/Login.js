@@ -53,7 +53,7 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-darkblue flex flex-col items-center justify-center">
+    <div className="min-h-screen bg-darkblue flex flex-col items-center justify-center py-18">
       <div className='flex flex-col items-center justify-center text-black gap-y-4 bg-white backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200/50 p-8 w-full max-w-md'>
         <div className="text-center max-w-3xl w-full space-y-8 flex flex-col items-center">
           <img src="/playonline.png" className='rounded-lg'/>
